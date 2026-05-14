@@ -1,59 +1,61 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/dragnet-dev/port/main/public/icon-128.svg" width="80" height="67" alt="Dragnet" />
+  <img src="https://raw.githubusercontent.com/dragnet-dev/.github/main/profile/icon-128-hull-text.png" width="80" height="67" alt="Dragnet" />
 </p>
 
 <h3 align="center">dragnet.dev</h3>
 
 <p align="center">
   Open source threat intelligence.<br/>
-  Detection rules and IOC feeds for every major SIEM. Free. No account.
+  Detection rules, IOC feeds, and hunting queries for every major SIEM.<br/>
+  Free. No account. No friction.
 </p>
 
 <p align="center">
-  <a href="https://dragnet.dev">Website</a> ·
-  <a href="https://github.com/dragnet-sh/haul">Rules & Feeds</a> ·
-  <a href="https://dragnet.dev/feeds">IOC Feeds</a>
+  <a href="https://dragnet.dev">dragnet.dev</a> &nbsp;·&nbsp;
+  <a href="https://github.com/dragnet-dev/haul">Rules & Feeds</a> &nbsp;·&nbsp;
+  <a href="https://dragnet.dev/feeds">IOC Feeds</a> &nbsp;·&nbsp;
+  <a href="https://github.com/dragnet-dev/dragnet">Docs</a>
 </p>
 
----
+<br/>
 
-## What's here
+Dragnet monitors threat intelligence sources across supply chain, malware, ransomware, and actively exploited CVEs. When a new incident is detected (a compromised npm package, a new malware family, a ransomware C2) it automatically generates detection rules for every platform and publishes IOC feeds. Everything updates every 6 hours with no manual intervention.
 
-| Repo | What it is |
+Rules are generated across three detection layers per incident: **exposure** (do you have the affected package or software?), **IOC hunting** (have you seen the domains, IPs, or file hashes?), and **behavioural hunting** (are the attack TTPs present regardless of known IOCs?). Multi-source confidence scoring means you always know how much to trust each rule.
+
+**Repos**
+
+| | |
 |---|---|
-| [dragnet](https://github.com/dragnet-sh/dragnet) | The engine — Go CLI that syncs threat intel sources and generates detection rules |
-| [haul](https://github.com/dragnet-dev/haul) | The data — live detection rules, IOC feeds, STIX bundles updated every 6 hours |
-| [port](https://github.com/dragnet-dev/port) | The site — source for dragnet.dev |
+| [dragnet](https://github.com/dragnet-dev/dragnet) | The Go CLI engine. Syncs sources, enriches IOCs, and generates rules via GitHub Actions |
+| [haul](https://github.com/dragnet-dev/haul) | The live data. Detection rules, IOC feeds, and STIX bundles updated every 6 hours |
+| [port](https://github.com/dragnet-dev/port) | The website. Source for dragnet.dev |
 
----
+**Supported platforms**
 
-## Consume the feeds
+Sigma · Microsoft Sentinel · KQL · Splunk · Elastic · Wazuh · CrowdStrike (LogScale + Falcon IOC) · Google Chronicle · Suricata · Snort · IBM QRadar · Datadog
 
-No account needed. Point your tools directly at these URLs:
+**Consuming the feeds**
+
+No setup needed. Use the raw GitHub URLs directly in your tools:
 
 ```
-# All modules combined
-https://raw.githubusercontent.com/dragnet-sh/haul/main/feeds/domains.txt
-https://raw.githubusercontent.com/dragnet-sh/haul/main/feeds/ips.txt
-https://raw.githubusercontent.com/dragnet-sh/haul/main/feeds/sha256.txt
-https://raw.githubusercontent.com/dragnet-sh/haul/main/feeds/stix/bundle.json
-https://raw.githubusercontent.com/dragnet-sh/haul/main/feeds/crowdstrike.json
+# Combined feeds (all modules)
+https://raw.githubusercontent.com/dragnet-dev/haul/main/feeds/domains.txt
+https://raw.githubusercontent.com/dragnet-dev/haul/main/feeds/ips.txt
+https://raw.githubusercontent.com/dragnet-dev/haul/main/feeds/sha256.txt
+https://raw.githubusercontent.com/dragnet-dev/haul/main/feeds/stix/bundle.json
+https://raw.githubusercontent.com/dragnet-dev/haul/main/feeds/crowdstrike.json
 
 # Supply chain only
-https://raw.githubusercontent.com/dragnet-sh/haul/main/supply/feeds/domains.txt
-https://raw.githubusercontent.com/dragnet-sh/haul/main/supply/feeds/unified.json
+https://raw.githubusercontent.com/dragnet-dev/haul/main/supply/feeds/domains.txt
+https://raw.githubusercontent.com/dragnet-dev/haul/main/supply/feeds/unified.json
 ```
 
----
+For Microsoft Sentinel connect your workspace directly via Content Hub > Repositories > `dragnet-dev/haul`. Rules deploy automatically on every update.
 
-## Connect your SIEM
+For all other platforms browse incidents and copy rules at [dragnet.dev](https://dragnet.dev).
 
-**Microsoft Sentinel** — connect your workspace directly via Content Hub → Repositories → `dragnet-sh/haul`
+**Contributing**
 
-**All other platforms** — browse incidents and copy rules at [dragnet.dev](https://dragnet.dev)
-
----
-
-## Contribute
-
-Spotted an incident not in Dragnet? Open a PR on [haul](https://github.com/dragnet-sh/haul) with an incident YAML. Trusted sources auto-merge within 60 minutes. See the [schema docs](https://github.com/dragnet-sh/dragnet) for the format.
+Spotted an incident not in Dragnet? Add an incident YAML to [haul](https://github.com/dragnet-dev/haul) and open a PR. Posts from trusted sources auto-merge within 60 minutes. Everything else gets a human review. The [dragnet](https://github.com/dragnet-dev/dragnet) repo covers the full incident schema including IOC types, confidence scoring, and detection layer structure.
