@@ -30,6 +30,9 @@ Rules are generated across three detection layers per incident: **exposure** (do
 | [dragnet](https://github.com/dragnet-dev/dragnet) | The Go CLI engine. Syncs sources, enriches IOCs, and generates rules via GitHub Actions |
 | [haul](https://github.com/dragnet-dev/haul) | The live data. Detection rules, IOC feeds, and STIX bundles updated every 6 hours |
 | [port](https://github.com/dragnet-dev/port) | The website. Source for dragnet.dev |
+| [trawl](https://github.com/dragnet-dev/trawl) | GitHub Action. Checks lockfiles against Dragnet on every PR. No setup required. |
+| [scope](https://github.com/dragnet-dev/scope) | VS Code extension. Hover over an import to see if a package is compromised. |
+| [buoy](https://github.com/dragnet-dev/buoy) | MCP server. Native Dragnet awareness for Claude Code, Cursor, Windsurf and any MCP-compatible agent. |
 
 **Supported platforms**
 
@@ -55,6 +58,26 @@ https://raw.githubusercontent.com/dragnet-dev/haul/main/supply/feeds/unified.jso
 For Microsoft Sentinel connect your workspace directly via Content Hub > Repositories > `dragnet-dev/haul`. Rules deploy automatically on every update.
 
 For all other platforms browse incidents and copy rules at [dragnet.dev](https://dragnet.dev).
+
+**Protect your developer workflow**
+
+Add Dragnet to your CI pipeline in three lines:
+
+```yaml
+- uses: dragnet-dev/trawl@v1
+```
+
+Install the VS Code extension to catch compromised packages at the point of writing the import:
+
+```
+ext install dragnet-dev.scope
+```
+
+Give your AI coding agent native supply chain awareness:
+
+```bash
+npx @dragnet-dev/buoy install
+```
 
 **Contributing**
 
